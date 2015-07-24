@@ -1,0 +1,320 @@
+@pause: .1s;
+
+.tile{
+	position: absolute;
+	border: 5px solid white;
+	opacity: 0; 
+	.transition(.2s all @eio);
+	overflow: hidden;
+
+	&.ready{
+		opacity: 1;
+	}
+
+	.title{
+		position: relative;
+		height: 100%;
+		width: 100%;
+
+		// display: none;
+
+		.slider{
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			top: 0;
+			left: 0;
+			display: table;
+
+			h2{
+				display: table-cell;
+				vertical-align: middle;
+				text-align: center;
+				text-transform: uppercase;
+				color: white;
+			}
+		}
+	}
+
+	.content{
+		position: absolute;
+		height: 100%;
+		width: 100%;
+		border: 10px solid;
+
+		overflow: hidden; 
+
+		.transitioning&{
+			.transition(all @pause @eio);
+		}
+		
+		[data-direction="top"]&       { top: -100%; left: 0;}
+		[data-direction="right"]&     { top: 0;     left: 100%;}
+		[data-direction="bottom"]&    { top: 100%;  left: 0;}
+		[data-direction="left"]&      { top: 0;     left: -100%;}
+
+		.slider{
+			background-color: white;
+			position: absolute;
+			height: 100%;
+			width: 100%;
+			padding: 10px;
+			.transitioning&{
+				.transition(all @pause @eio);
+			}
+			
+			[data-direction="top"]&       { top: ~'calc(100% + 20px)';  left: 0;}
+			[data-direction="right"]&     { top: 0;     left: ~'calc(-100% - 20px)';}
+			[data-direction="bottom"]&    { top: ~'calc(-100% - 20px)'; left: 0;}
+			[data-direction="left"]&      { top: 0;     left: ~'calc(100% + 20px)';}
+
+			p{
+				margin: 0 0 .75em;
+
+				a{
+					border-style: dotted;
+					border-width: 0 0 1px;
+					text-decoration: none;
+					color: inherit;
+				}
+			}
+		}
+	}
+
+	&.hover{
+		.content{
+			top: 0 !important;
+			left: 0 !important;
+			.transition(all @pause @eio);
+
+			.slider{
+				top: 0 !important;
+				left: 0 !important;
+				.transition(all @pause @eio);
+			}
+		}
+	}
+
+	h2{
+		font-size: 17px;
+		letter-spacing: 3px;
+	}
+}
+
+.link{
+	.static, .content .slider{
+		height: 100%;
+		width: 100%;
+		display: table;
+
+		h2{
+			display: table-cell;
+			vertical-align: middle;
+			text-align: center;
+			text-transform: uppercase;
+
+			span{
+				border-bottom: 1px dotted;
+			}
+		}
+	}
+	.static{ 
+		position: relative; 
+		color: white;
+		span{
+			border-color: white;
+		}
+	}
+	.content{ position: absolute; }
+}
+
+.pos(@width, @height, @top, @left){
+	width: @width;
+	height: @height;
+	top: @top;
+	left: @left;
+}
+
+.start{
+	display: table;
+	background-image: url(../img/hvy.jpg);
+	background-size: cover;
+	background-position: center;
+	opacity: 1 !important;
+	.pos(100%, @miniHeight, 0, 0);
+
+
+	@media screen and (min-width: @BPsmall){
+		.pos(100%, @mediumHeight * 2, @mediumHeight, 0);
+	}
+
+	@media screen and (min-width: @BPmedium){
+		.pos(@third * 2, @mediumHeight * 3, 0, @third * 1);
+	}
+
+	@media screen and (min-width: @BPlarge){
+		.pos(50%, 50%, 25%, 25%);
+	}
+
+	@media screen and (min-width: @BPsuper){
+		.pos(50%, 100%, 0, 0);
+	}
+
+	&:before{
+		content:'';
+		position: absolute;
+		top: 0;
+		left: 0;
+		height: 100%;
+		width: 100%;
+		z-index: 1;
+		background-color: rgba(0, 0, 0, .6);
+	}
+
+	.center{
+		display: table-cell;
+		vertical-align: middle;
+		text-align: center;
+		z-index: 2;
+		position: relative;
+
+		h1{
+			font-size: 50px;
+			color: white;
+			padding-left: 20px;
+			padding-right: 20px;
+			line-height: 45px;
+			margin: 0;
+		}
+
+		p{
+			margin: 20px 0 0;
+			a {
+				color: white;
+				text-decoration: none;
+				border-bottom: 1px dotted white;
+			}
+		}
+
+	}
+}
+
+.colophon{
+	font-size: 10px;
+	line-height: 12px;
+}
+
+
+.me {          .pos(100%, @miniHeight, @miniHeight * 1, 0 );   .transitionDelay(0 * @readyDelay); }
+.work {        .pos(100%, @miniHeight, @miniHeight * 2, 0 );   .transitionDelay(1 * @readyDelay); }
+.school {      .pos(100%, @miniHeight, @miniHeight * 3, 0 );   .transitionDelay(2 * @readyDelay); }
+.clients {     .pos(100%, @miniHeight, @miniHeight * 4, 0 );   .transitionDelay(3 * @readyDelay); }
+.interests {   .pos(100%, @miniHeight, @miniHeight * 5, 0 );   .transitionDelay(4 * @readyDelay); }
+.languages {   .pos(100%, @miniHeight, @miniHeight * 6, 0 );   .transitionDelay(5 * @readyDelay); }
+.instruments { .pos(100%, @miniHeight, @miniHeight * 7, 0 );   .transitionDelay(6 * @readyDelay); }
+.colophon {    .pos(100%, @miniHeight, @miniHeight * 12, 0 );  .transitionDelay(7 * @readyDelay); }
+.portfolio {   .pos(100%, @miniHeight, @miniHeight * 8, 0 );   .transitionDelay(8 * @readyDelay); }
+.blog {        .pos(100%, @miniHeight, @miniHeight * 9, 0 );   .transitionDelay(9 * @readyDelay); }
+.pdf {         .pos(100%, @miniHeight, @miniHeight * 10, 0 );  .transitionDelay(10 * @readyDelay); }
+.old {         .pos(100%, @miniHeight, @miniHeight * 11, 0 );  .transitionDelay(11 * @readyDelay); }
+
+@media screen and (min-width: @BPsmall){
+	.me {          .pos(50%, @mediumHeight, @mediumHeight * 0, 0);   .transitionDelay(1 * @readyDelay);  }
+	.work {        .pos(50%, @mediumHeight, @mediumHeight * 0, 50%); .transitionDelay(2 * @readyDelay);  }
+	.school {      .pos(50%, @mediumHeight, @mediumHeight * 3, 0);   .transitionDelay(3 * @readyDelay);  }
+	.clients {     .pos(50%, @mediumHeight, @mediumHeight * 3, 50%); .transitionDelay(4 * @readyDelay);  }
+	.interests {   .pos(50%, @mediumHeight, @mediumHeight * 4, 0);   .transitionDelay(5 * @readyDelay);  }
+	.languages {   .pos(50%, @mediumHeight, @mediumHeight * 4, 50%); .transitionDelay(6 * @readyDelay);  }
+	.instruments { .pos(50%, @mediumHeight, @mediumHeight * 5, 0);   .transitionDelay(7 * @readyDelay);  }
+	.portfolio {   .pos(50%, @mediumHeight, @mediumHeight * 5, 50%); .transitionDelay(8 * @readyDelay);  }
+	.blog {        .pos(50%, @mediumHeight, @mediumHeight * 6, 0);   .transitionDelay(9 * @readyDelay);  }
+	.pdf {         .pos(50%, @mediumHeight, @mediumHeight * 6, 50%); .transitionDelay(10 * @readyDelay); }
+	.old {         .pos(50%, @mediumHeight, @mediumHeight * 7, 0);   .transitionDelay(11 * @readyDelay); }
+	.colophon {    .pos(50%, @mediumHeight, @mediumHeight * 7, 50%); .transitionDelay(12 * @readyDelay); }
+} 
+
+@media screen and (min-width: @BPmedium){
+	.me {          .pos(@third, @mediumHeight, @mediumHeight * 0, 0);	        .transitionDelay(1 * @readyDelay);  }
+	.work {        .pos(@third, @mediumHeight, @mediumHeight * 1, 0);	        .transitionDelay(2 * @readyDelay);  }
+	.school {      .pos(@third, @mediumHeight, @mediumHeight * 2, 0);           .transitionDelay(3 * @readyDelay);  }
+	.clients {     .pos(@third, @mediumHeight, @mediumHeight * 3, 0);	        .transitionDelay(4 * @readyDelay);  }
+	.interests {   .pos(@third, @mediumHeight, @mediumHeight * 3, @third * 1);	.transitionDelay(5 * @readyDelay);  }
+	.languages {   .pos(@third, @mediumHeight, @mediumHeight * 3, @third * 2);  .transitionDelay(6 * @readyDelay);  }
+	.instruments { .pos(@third, @mediumHeight, @mediumHeight * 4, 0);	        .transitionDelay(7 * @readyDelay);  }
+	.portfolio {   .pos(@third, @mediumHeight, @mediumHeight * 4, @third * 1);	.transitionDelay(8 * @readyDelay);  }
+	.blog {        .pos(@third, @mediumHeight, @mediumHeight * 4, @third * 2);  .transitionDelay(9 * @readyDelay);  }
+	.pdf {         .pos(@third, @mediumHeight, @mediumHeight * 5, 0);	        .transitionDelay(10 * @readyDelay); }
+	.old {         .pos(@third, @mediumHeight, @mediumHeight * 5, @third * 1);	.transitionDelay(11 * @readyDelay); }
+	.colophon {    .pos(@third, @mediumHeight, @mediumHeight * 5, @third * 2);  .transitionDelay(12 * @readyDelay); }
+} 
+
+@media screen and (min-width: @BPlarge){
+	.me {          .pos(25%, 25%, 0, 0);     .transitionDelay(1 * @readyDelay); }
+	.work {        .pos(25%, 25%, 0, 25%);   .transitionDelay(2 * @readyDelay); }
+	.interests {   .pos(25%, 25%, 25%, 0%);  .transitionDelay(2 * @readyDelay); }
+	.school {      .pos(25%, 25%, 0, 50%);   .transitionDelay(3 * @readyDelay); }
+	.languages {   .pos(25%, 25%, 50%, 0);   .transitionDelay(3 * @readyDelay); }
+	.clients {     .pos(25%, 25%, 0, 75%);   .transitionDelay(4 * @readyDelay); }
+	.instruments { .pos(25%, 25%, 75%, 0%);  .transitionDelay(4 * @readyDelay); }
+	.portfolio {   .pos(25%, 25%, 25%, 75%); .transitionDelay(5 * @readyDelay); }
+	.pdf {         .pos(25%, 25%, 75%, 25%); .transitionDelay(5 * @readyDelay); }
+	.blog {        .pos(25%, 25%, 50%, 75%); .transitionDelay(6 * @readyDelay); }
+	.old {         .pos(25%, 25%, 75%, 50%); .transitionDelay(6 * @readyDelay); }
+	.colophon {    .pos(25%, 25%, 75%, 75%); .transitionDelay(7 * @readyDelay); }
+} 
+
+@media screen and (min-width: @BPsuper){
+	.me {          .pos(@sixth, 25%, 0, @sixth * 3);    .transitionDelay(1 * @readyDelay); }
+	.work {        .pos(@sixth, 25%, 0, @sixth * 4);    .transitionDelay(2 * @readyDelay); }
+	.interests {   .pos(@sixth, 25%, 0, @sixth * 5);    .transitionDelay(3 * @readyDelay); }
+	.school {      .pos(@sixth, 25%, 25%, @sixth * 3);  .transitionDelay(2 * @readyDelay); }
+	.languages {   .pos(@sixth, 25%, 25%, @sixth * 4);  .transitionDelay(3 * @readyDelay); }
+	.clients {     .pos(@sixth, 25%, 25%, @sixth * 5);  .transitionDelay(4 * @readyDelay); }
+	.instruments { .pos(@sixth, 25%, 50%, @sixth * 3);  .transitionDelay(3 * @readyDelay); }
+	.portfolio {   .pos(@sixth, 25%, 50%, @sixth * 4);  .transitionDelay(4 * @readyDelay); }
+	.pdf {         .pos(@sixth, 25%, 50%, @sixth * 5);  .transitionDelay(5 * @readyDelay); }
+	.blog {        .pos(@sixth, 25%, 75%, @sixth * 3);  .transitionDelay(4 * @readyDelay); }
+	.old {         .pos(@sixth, 25%, 75%, @sixth * 4);  .transitionDelay(5 * @readyDelay); }
+	.colophon {    .pos(@sixth, 25%, 75%, @sixth * 5);  .transitionDelay(6 * @readyDelay); }
+} 
+
+.invert{
+	color: white;
+	padding: 1px 3px;
+}
+
+.reveal{
+	width: 100%;
+	position: relative;
+	overflow: hidden;
+	cursor: help;
+	
+	.front{
+		position: relative;
+		width: 100%;
+		display: inline-block;
+		background-color: white;
+	}
+
+	.hover{
+		position: absolute;
+		top: 0;
+		left: 0;
+		width: 0;
+		height: 100%;
+		overflow: hidden;
+		color: white;
+		z-index: 1;
+		.transition(all .25s @eio);
+		span{
+			position: absolute;
+			top: 0;
+			left: 0;
+			white-space: nowrap;
+		}
+	}
+
+	&:hover .hover{
+		width: 100%;
+	}
+}
